@@ -1,0 +1,60 @@
+// ::ng-deep .mdc-card {
+//   display: flex;
+//   flex-direction: column;
+//   box-sizing: border-box;
+//   width: 100%;
+//   // margin-left: 90px;
+//   height: 500px;
+// }
+
+.navbar-brand {
+  color: #ffffff;
+  margin-left: 400px;
+}
+
+.container {
+  width: 1098px;
+  margin-left: -12px;
+}
+
+.fa-plus-circle {
+  color: #3e7758 !important;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.fa-trash {
+  color: red !important;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-title {
+  background-color: #499;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  color: #ffffff;
+  margin-left: -29px;
+}
+
+.dialog-title::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid #277;
+  border-right: 7px solid #277;
+  border-bottom: 7px solid #0000;
+  border-left: 7px solid #0000;
+}
