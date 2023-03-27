@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-github-documentation',
@@ -10,8 +12,10 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 export class GithubDocumentationComponent {
   addRepoForm: any = FormGroup;
   repoAddModal: any;
+  index: number = 0;
 
-  constructor(private modalService: NgbModal, config: NgbModalConfig, private fb: FormBuilder) {
+  constructor(private modalService: NgbModal, config: NgbModalConfig, private fb: FormBuilder,
+    private toaster: ToastrService,) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -27,7 +31,7 @@ export class GithubDocumentationComponent {
     });
   }
 
-  get c(){
+  get c() {
     return this.addRepoForm.controls;
   }
 
@@ -42,6 +46,31 @@ export class GithubDocumentationComponent {
     this.addRepoForm.reset()
   }
 
+  tabChanged(tabChangeEvent: MatTabChangeEvent) {
+    this.index = tabChangeEvent.index;
+  }
+
+  addRepo() {
+    console.log(this.addRepoForm.value.owner);
+    if (this.addRepoForm.value.owner.search(' ') != -1) {
+      this.showError("Username cannot contain spaces");
+    }
+
+ 
+  }
+
+  showSuccess(message: any) {
+    this.toaster.success(message, 'Github-Documentation', {
+      timeOut: 3000,
+    });
+  }
+
+
+  showError(message: any) {
+    this.toaster.error(message, 'Github-Documentation', {
+      timeOut: 3000,
+    });
+  }
 
 }
 

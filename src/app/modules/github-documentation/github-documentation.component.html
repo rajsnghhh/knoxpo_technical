@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
-                    <div class="col-md" style="height: 58vh; overflow-y: auto;">
+                    <div class="col-md" style="height: 55vh; overflow-y: auto;">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -116,102 +116,34 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md">
-                        <i class="fa fa-trash" style="float: right;margin-right: 34px;" (click)="addNewRepositoryDialog(repository)"></i>
+                        <i class="fa fa-trash" style="float: right;margin-right: 34px;"
+                            (click)="addNewRepositoryDialog(repository)"></i>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md" style="height: 58vh; overflow-y: auto;margin-right: 12px;">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-md" style="height: 55vh; overflow-y: auto;margin-right: 12px;">
+                        <mat-tab-group animationDuration="500ms" (selectedTabChange)="tabChanged($event)">
+
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    BRANCHES
+                                </ng-template>
+                                <ng-template matTabContent>
+                                    1111111111111
+                                </ng-template>
+                            </mat-tab>
+
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    ISSUES
+                                </ng-template>
+                                <ng-template matTabContent>
+                                    2222222222
+                                </ng-template>
+                            </mat-tab>
+
+                        </mat-tab-group>
                     </div>
                 </div>
 
@@ -264,7 +196,7 @@
 
         <div class="modal-footer">
             <div class="row">
-                <div> <button type="button" class="btn btn-outline-dark">ADD</button>
+                <div> <button type="button" class="btn btn-outline-dark" (click)="addRepo()">ADD</button>
                 </div>
             </div>
         </div>

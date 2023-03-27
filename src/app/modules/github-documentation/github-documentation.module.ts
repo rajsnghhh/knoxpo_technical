@@ -6,6 +6,7 @@ import { GithubDocumentationComponent } from './github-documentation.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     GithubDocumentationRoutingModule,
     MatCardModule,
-    NgbModule, ReactiveFormsModule
+    NgbModule, ReactiveFormsModule, MatTabsModule
   ]
 })
 export class GithubDocumentationModule { }
