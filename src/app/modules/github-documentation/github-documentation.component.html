@@ -11,92 +11,18 @@
                 <div class="row">
                     <div class="col-md" style="height: 55vh; overflow-y: auto;">
                         <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
+
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
+                                <tr let *ngFor="let repo of repositoryDetails; index as i"
+                                    (click)="onClickRepoGetBranchDetails(repo,i)">
+                                    <div [ngClass]="clickRepoDiv==i?'select':'deselect'">
+                                        <td><strong>Repository Name : </strong>{{repo.repo_name}}</td><br>
+                                        <td><strong>Repository Description : </strong>{{repo.repo_description}}</td>
+                                    </div>
+                                    <!-- <div id="select" *ngIf="this.clickRepoDiv">
+                                        <td><strong>Repository Name : </strong>{{repo.repo_name}}</td><br>
+                                        <td><strong>Repository Description : </strong>{{repo.repo_description}}</td>
+                                    </div> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -130,7 +56,21 @@
                                     BRANCHES
                                 </ng-template>
                                 <ng-template matTabContent>
-                                    1111111111111
+                                    <table class="table table-striped">
+
+                                        <tbody>
+                                            <tr let *ngFor="let branch of branchesList; index as i">
+                                                <div>
+                                                    <td (click)="onClickBranchGetCommitDetails(branch, commit)">
+                                                        <strong>BRANCH
+                                                            NAME : </strong>{{branch.name}}
+                                                    </td><br>
+                                                </div>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
                                 </ng-template>
                             </mat-tab>
 
@@ -139,7 +79,28 @@
                                     ISSUES
                                 </ng-template>
                                 <ng-template matTabContent>
-                                    2222222222
+                                    <table class="table table-striped">
+                                        <!-- <thead>
+                                            <tr>
+                                                <th>ISSUE TITLE</th>
+                                            </tr>
+                                        </thead> -->
+                                        <!-- <div let *ngFor="let issue of issuesList; index as i">
+                                            {{issue.title}}<br>
+                                            {{issue.author_association}}
+                                        </div> -->
+                                        <tbody>
+                                            <tr let *ngFor="let issue of issuesList; index as i">
+                                                <div>
+                                                    <td><strong>ISSUE TITLE : </strong>{{issue.title}}</td><br>
+                                                    <td><img src={{issue.user.avatar_url}} alt="Avatar" class="avatar">
+                                                        &nbsp;
+                                                        {{issue.author_association}}</td>
+                                                </div>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </ng-template>
                             </mat-tab>
 
@@ -200,5 +161,61 @@
                 </div>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #commit let-modal>
+    <div class="commitModal">
+        <!-- 
+        <div class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="row">
+                <div class="col-md-9"><span class="navbar-brands">COMMITS: {{branchName}}</span> </div>
+                <div class="col-md-3"><span class="close" (click)="closeCommitDialog()"
+                        style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;background: white;">&times;</span>
+                </div>
+            </div>
+            
+        </div> -->
+
+        <!-- <div class="col-md">
+            <span class="close" (click)="closeCommitDialog()"
+                style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;background: white;">&times;</span>
+        </div> -->
+
+
+
+
+        <div class="modal-header" style="background: black;color: #ffff">
+
+            <div class="col-md">
+                <span>COMMITS: {{branchName}}</span>
+            </div>
+
+            <div class="col-md">
+                <span class="close" (click)="closeCommitDialog()"
+                    style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;">&times;</span>
+            </div>
+
+        </div>
+
+        <div class="modal-body" style="height: 55vh; overflow-y: auto;">
+            <table class="table table-striped">
+
+                <tbody>
+                    <tr let *ngFor="let comm of commitsList; index as i">
+                        <div>
+                            <td><strong>{{comm.commit.author.date}}</strong></td><br>
+                            <td>{{comm.commit.message}}</td><br>
+                            <td><img src={{comm.committer.avatar_url}} alt="Avatar" class="avatar">
+                                &nbsp;
+                                {{comm.commit.committer.name}}</td>
+                        </div>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
 </ng-template>

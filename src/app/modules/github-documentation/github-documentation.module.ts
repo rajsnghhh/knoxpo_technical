@@ -18,6 +18,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     GithubDocumentationRoutingModule,
     MatCardModule,
     NgbModule, ReactiveFormsModule, MatTabsModule
-  ]
+  ],
 })
 export class GithubDocumentationModule { }

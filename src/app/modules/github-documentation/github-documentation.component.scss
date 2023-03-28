@@ -12,6 +12,12 @@
   margin-left: 400px;
 }
 
+.navbar-brands {
+  color: #ffffff;
+  margin-left: 180px;
+}
+
+
 .container {
   width: 1098px;
   margin-left: -12px;
@@ -57,4 +63,31 @@
   border-right: 7px solid #277;
   border-bottom: 7px solid #0000;
   border-left: 7px solid #0000;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.select {
+  border: 1px solid black;
+}
+
+.deselect {
+  border: 0px;
+}
+
+.commitModal {
+  height: 500px;
+  width: 800px;
+  background: #ffffff;
+  margin-left: -145px;
+}
+
+.modal-header {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
