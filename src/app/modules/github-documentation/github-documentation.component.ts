@@ -4,6 +4,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: 'app-github-documentation',
@@ -21,22 +22,19 @@ export class GithubDocumentationComponent {
   issuesList: Array<any> = [];
   clickRepoDiv: any;
   branchName: any;
+  deleteActive: boolean = false;
 
   constructor(private modalService: NgbModal, config: NgbModalConfig, private fb: FormBuilder,
-    private toaster: ToastrService, private commonservice: CommonService) {
+    private toaster: ToastrService, private commonservice: CommonService, public validationService: ValidationService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
-  // ngDoCheck(): void {
-  //   this.clickRepoDiv ;
-  // }
-
   ngOnInit(): void {
     this.repoForms();
-    this.commonservice.getRepository().subscribe((res: any) => {
-      console.log(res, 'postData');
-    })
+    // this.commonservice.getRepository().subscribe((res: any) => {
+    //   console.log(res);
+    // })
   }
 
   repoForms() {
@@ -66,30 +64,51 @@ export class GithubDocumentationComponent {
   }
 
   addRepo() {
-    console.log(this.addRepoForm.value.owner);
-    if (this.addRepoForm.value.owner.search(' ') != -1) {
-      this.showError("Username cannot contain spaces");
+    if (!this.addRepoForm.value.owner) {
+      this.showError("Owner/ Organization should not be empty");
+      return;
+    }
+
+    if (!this.addRepoForm.value.repo_name) {
+      this.showError("Repository Name should not be empty");
+      return;
+    }
+
+    if (this.addRepoForm.value.owner) {
+      if (this.addRepoForm.value.owner.trim() == '') {
+        this.showError("Owner/ Organization should not be empty");
+        return;
+      }
+    }
+
+    if (this.addRepoForm.value.repo_name) {
+      if (this.addRepoForm.value.repo_name.trim() == '') {
+        this.showError("Repository Name should not be empty");
+        return;
+      }
     }
 
     this.repositoryDetails.push(
       {
-        repo_name: this.addRepoForm.value.owner,
-        repo_description: this.addRepoForm.value.repo_name
+        owner_name: this.addRepoForm.value.owner.trim(),
+        repo_name: this.addRepoForm.value.repo_name.trim()
       })
-    this.closeAddRepoDialog()
+    this.closeAddRepoDialog();
 
   }
 
   onClickRepoGetBranchDetails(repo: any, i: any) {
     this.clickRepoDiv = i;
-    console.log(this.clickRepoDiv);
+    this.deleteActive = true;
+    // console.log(this.deleteActive, 'this.deleteActive');
+    // console.log(this.clickRepoDiv);
 
-    this.commonservice.getBranches().subscribe((res: any) => {
+    this.commonservice.getRepositoryBranches().subscribe((res: any) => {
       this.branchesList = res;
       console.log(this.branchesList, 'branchesList');
     });
 
-    this.commonservice.getIssues().subscribe((res: any) => {
+    this.commonservice.getRepositoryIssues().subscribe((res: any) => {
       this.issuesList = res;
       console.log(this.issuesList, 'issuesList');
     });
@@ -103,13 +122,13 @@ export class GithubDocumentationComponent {
       windowClass: 'commit',
     });
 
-    this.commonservice.getCommits().subscribe((res: any) => {
+    this.commonservice.getCommitsInBranch().subscribe((res: any) => {
       this.commitsList = res;
       this.commitsList.forEach(x => {
-        var dob = new Date(x.commit.author.date);
+        var dob = new Date(x.commit.committer.date);
         var dobArr = dob.toDateString().split(' ');
         var dobFormat = dobArr[2] + ' ' + dobArr[1] + ' ' + dobArr[3];
-        x.commit.author.date = dobFormat;
+        x.commit.committer.date = dobFormat;
       })
       console.log(this.commitsList, 'commitsList');
     })
@@ -120,16 +139,31 @@ export class GithubDocumentationComponent {
     this.commitModal.close();
   }
 
+  removeRepository() {
+    let text = "Are you sure you want to delete the selected repository ?";
+    if (confirm(text) == true) {
+      this.repositoryDetails.splice(this.clickRepoDiv, 1);
+      this.branchesList = [];
+      this.issuesList = [];
+      this.clickRepoDiv = -1;
+      this.deleteActive = false;
+      // console.log(this.repositoryDetails);
+      if (this.repositoryDetails.length == 0) {
+        this.deleteActive = false;
+      }
+    }
+
+  }
+
   showSuccess(message: any) {
     this.toaster.success(message, 'Github-Documentation', {
-      timeOut: 3000,
+      timeOut: 2000,
     });
   }
 
-
   showError(message: any) {
     this.toaster.error(message, 'Github-Documentation', {
-      timeOut: 3000,
+      timeOut: 2000,
     });
   }
 

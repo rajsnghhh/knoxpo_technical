@@ -1,4 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main_content_inner {
+  width: 85%;
+  margin-left: 90px;
+  margin-top: 25px;
+}
+
+.fa-plus-circle {
+  color: #3e7758 !important;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.modal-header {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background: black;
+  text-align: center;
+  color: #ffffff;
+  word-wrap: break-word;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--bs-modal-color);
+  pointer-events: auto;
+  background-color: none;
+  background-clip: padding-box;
+  border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+  border-radius: var(--bs-modal-border-radius);
+  outline: 0;
+}

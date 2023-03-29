@@ -1,124 +1,107 @@
 <mat-card style="height: 450px;">
-    <!-- <mat-card-content style="background-color: #f8f9fa;"> -->
-    <div class="container">
 
-        <div class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand">GITHUB BROWSER</a>
-        </div>
+    <h3>
+        <div class="navbar">GITHUB BROWSER</div>
+    </h3>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md" style="height: 55vh; overflow-y: auto;">
-                        <table class="table table-striped">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md" style="height: 52vh; overflow-y: auto;">
+                    <table class="table table-striped">
 
-                            <tbody>
-                                <tr let *ngFor="let repo of repositoryDetails; index as i"
-                                    (click)="onClickRepoGetBranchDetails(repo,i)">
-                                    <div [ngClass]="clickRepoDiv==i?'select':'deselect'">
-                                        <td><strong>Repository Name : </strong>{{repo.repo_name}}</td><br>
-                                        <td><strong>Repository Description : </strong>{{repo.repo_description}}</td>
-                                    </div>
-                                    <!-- <div id="select" *ngIf="this.clickRepoDiv">
-                                        <td><strong>Repository Name : </strong>{{repo.repo_name}}</td><br>
-                                        <td><strong>Repository Description : </strong>{{repo.repo_description}}</td>
-                                    </div> -->
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md">
-                        <i class="fa fa-plus-circle" (click)="addNewRepositoryDialog(repository)"></i>
-                    </div>
+                        <tbody>
+                            <tr let *ngFor="let repo of repositoryDetails; index as i"
+                                (click)="onClickRepoGetBranchDetails(repo, i)" style="cursor: pointer;">
+                                <div [ngClass]="clickRepoDiv == i? 'select' : 'deselect'">
+                                    <td><strong>Repository Name : </strong>{{repo.repo_name}}</td><br>
+                                    <td><strong>Repository Description : </strong>{{repo.owner_name}}</td>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
 
-
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md">
-                        <i class="fa fa-trash" style="float: right;margin-right: 34px;"
-                            (click)="addNewRepositoryDialog(repository)"></i>
-                    </div>
+            <div class="row">
+                <div class="col-md">
+                    <i class="fa fa-plus-circle" title="Add Repository"
+                        (click)="addNewRepositoryDialog(repository)"></i>
                 </div>
-
-                <div class="row">
-                    <div class="col-md" style="height: 55vh; overflow-y: auto;margin-right: 12px;">
-                        <mat-tab-group animationDuration="500ms" (selectedTabChange)="tabChanged($event)">
-
-                            <mat-tab>
-                                <ng-template mat-tab-label>
-                                    BRANCHES
-                                </ng-template>
-                                <ng-template matTabContent>
-                                    <table class="table table-striped">
-
-                                        <tbody>
-                                            <tr let *ngFor="let branch of branchesList; index as i">
-                                                <div>
-                                                    <td (click)="onClickBranchGetCommitDetails(branch, commit)">
-                                                        <strong>BRANCH
-                                                            NAME : </strong>{{branch.name}}
-                                                    </td><br>
-                                                </div>
-
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </ng-template>
-                            </mat-tab>
-
-                            <mat-tab>
-                                <ng-template mat-tab-label>
-                                    ISSUES
-                                </ng-template>
-                                <ng-template matTabContent>
-                                    <table class="table table-striped">
-                                        <!-- <thead>
-                                            <tr>
-                                                <th>ISSUE TITLE</th>
-                                            </tr>
-                                        </thead> -->
-                                        <!-- <div let *ngFor="let issue of issuesList; index as i">
-                                            {{issue.title}}<br>
-                                            {{issue.author_association}}
-                                        </div> -->
-                                        <tbody>
-                                            <tr let *ngFor="let issue of issuesList; index as i">
-                                                <div>
-                                                    <td><strong>ISSUE TITLE : </strong>{{issue.title}}</td><br>
-                                                    <td><img src={{issue.user.avatar_url}} alt="Avatar" class="avatar">
-                                                        &nbsp;
-                                                        {{issue.author_association}}</td>
-                                                </div>
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </ng-template>
-                            </mat-tab>
-
-                        </mat-tab-group>
-                    </div>
-                </div>
-
             </div>
+
         </div>
 
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md">
+                    <div class="inactive"> <i class="fa fa-trash" *ngIf="deleteActive == false"></i></div>
+                    <div class="active"> <i class="fa fa-trash" title="Remove Selected Repository"
+                            (click)="removeRepository()" *ngIf="deleteActive == true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md">
+                    <mat-tab-group animationDuration="500ms" (selectedTabChange)="tabChanged($event)"
+                        style="height: 55vh; overflow-y: auto;margin-right: 12px;">
+
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                BRANCHES
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                        <tr let *ngFor="let branch of branchesList; index as i"
+                                            (click)="onClickBranchGetCommitDetails(branch, commit)"
+                                            style="cursor: pointer;">
+                                            <div>
+                                                <td>
+                                                    <strong>BRANCH NAME : </strong>{{branch.name}}
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </mat-tab>
+
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                ISSUES
+                            </ng-template>
+                            <ng-template matTabContent>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr let *ngFor="let issue of issuesList; index as i">
+                                            <div>
+                                                <td><strong>ISSUE TITLE : </strong>{{issue.title}}</td><br>
+                                                <td><img src={{issue.user.avatar_url}} alt="Avatar" class="avatar">
+                                                    &nbsp;
+                                                    {{issue.author_association}}</td>
+                                            </div>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ng-template>
+                        </mat-tab>
+
+                    </mat-tab-group>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <!-- </mat-card-content> -->
 </mat-card>
 
 <ng-template #repository let-modal>
     <div class="modal-HF" style="height: 400px;">
-        <div class="modal-header">
+        <div class="modal-header" style="background: #ffff;color: black;text-align: start;">
 
             <div class="col-md">
                 <h3 class="dialog-title" id="modal-basic-title">ADD NEW REPOSITORY</h3>
@@ -135,9 +118,11 @@
             <form class="form-signin" [formGroup]="addRepoForm">
                 <div class="form-group col-md">
                     <label for="owner">Owner / Organization :&nbsp;<span class="text-danger">*&nbsp;</span></label>
-                    <input type="text" class="form-control" placeholder="Enter the username" formControlName="owner"
-                        [ngClass]="{'is-invalid': c.owner.invalid
-                    && c.owner.touched,'is-valid': c.owner.valid && (c.owner.dirty || c.owner.touched) }">
+                    <input type="text" class="form-control" placeholder="Enter Owner / Organization"
+                        onpaste="return false" formControlName="owner"
+                        (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)"
+                        [ngClass]="{'is-invalid':
+                         c.owner.invalid && c.owner.touched,'is-valid': c.owner.valid && (c.owner.dirty ||c.owner.touched) }">
                     <div *ngIf="c.owner.errors" class="invalid-feedback">
                         <div *ngIf="c.owner.errors.required">Please enter the field</div>
                     </div>
@@ -145,7 +130,8 @@
 
                 <div class="form-group col-md">
                     <label for="repo_name">Repository Name :&nbsp;<span class="text-danger">*&nbsp;</span></label>
-                    <input type="text" class="form-control" placeholder="Enter the username" formControlName="repo_name"
+                    <input type="text" class="form-control" placeholder="Enter Repository Name" onpaste="return false;"
+                        formControlName="repo_name" (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)"
                         [ngClass]="{'is-invalid': c.repo_name.invalid
                         && c.repo_name.touched,'is-valid': c.repo_name.valid && (c.repo_name.dirty || c.repo_name.touched) }">
                     <div *ngIf=" c.repo_name.errors" class="invalid-feedback">
@@ -165,33 +151,15 @@
 </ng-template>
 
 <ng-template #commit let-modal>
-    <div class="commitModal">
-        <!-- 
-        <div class="navbar navbar-expand-lg navbar-light bg-dark">
-            <div class="row">
-                <div class="col-md-9"><span class="navbar-brands">COMMITS: {{branchName}}</span> </div>
-                <div class="col-md-3"><span class="close" (click)="closeCommitDialog()"
-                        style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;background: white;">&times;</span>
-                </div>
-            </div>
-            
-        </div> -->
 
-        <!-- <div class="col-md">
-            <span class="close" (click)="closeCommitDialog()"
-                style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;background: white;">&times;</span>
-        </div> -->
+    <div class="modal-content">
+        <div class="modal-header">
 
-
-
-
-        <div class="modal-header" style="background: black;color: #ffff">
-
-            <div class="col-md">
+            <div class="col-md-10">
                 <span>COMMITS: {{branchName}}</span>
             </div>
 
-            <div class="col-md">
+            <div class="col-md-2">
                 <span class="close" (click)="closeCommitDialog()"
                     style="cursor: pointer;font-size: 35px;float: right; margin-top: -18px;">&times;</span>
             </div>
@@ -204,7 +172,7 @@
                 <tbody>
                     <tr let *ngFor="let comm of commitsList; index as i">
                         <div>
-                            <td><strong>{{comm.commit.author.date}}</strong></td><br>
+                            <td><strong>{{comm.commit.committer.date}}</strong></td><br>
                             <td>{{comm.commit.message}}</td><br>
                             <td><img src={{comm.committer.avatar_url}} alt="Avatar" class="avatar">
                                 &nbsp;
@@ -216,6 +184,6 @@
             </table>
         </div>
 
-
     </div>
+
 </ng-template>

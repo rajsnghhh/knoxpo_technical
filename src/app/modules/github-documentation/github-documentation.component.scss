@@ -1,40 +1,23 @@
-// ::ng-deep .mdc-card {
-//   display: flex;
-//   flex-direction: column;
-//   box-sizing: border-box;
-//   width: 100%;
-//   // margin-left: 90px;
-//   height: 500px;
-// }
-
-.navbar-brand {
-  color: #ffffff;
-  margin-left: 400px;
+.navbar {
+  color: #ffff;
+  justify-content: center;
+  background: black;
 }
 
-.navbar-brands {
-  color: #ffffff;
-  margin-left: 180px;
-}
-
-
-.container {
-  width: 1098px;
-  margin-left: -12px;
-}
-
-.fa-plus-circle {
-  color: #3e7758 !important;
-  font-size: 30px;
-  margin-left: 10px;
-  margin-top: 8px;
-  cursor: pointer;
-}
-
-.fa-trash {
+.active .fa-trash {
   color: red !important;
   cursor: pointer;
   font-size: 25px;
+  float: right;
+  margin-right: 34px
+}
+
+.inactive .fa-trash {
+  color: rgb(255, 140, 140) !important;
+  cursor: pointer;
+  font-size: 25px;
+  float: right;
+  margin-right: 34px
 }
 
 .dialog-header {
@@ -78,16 +61,4 @@
 
 .deselect {
   border: 0px;
-}
-
-.commitModal {
-  height: 500px;
-  width: 800px;
-  background: #ffffff;
-  margin-left: -145px;
-}
-
-.modal-header {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }

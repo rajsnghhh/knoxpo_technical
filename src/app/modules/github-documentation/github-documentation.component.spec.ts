@@ -8,9 +8,9 @@ describe('GithubDocumentationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GithubDocumentationComponent ]
+      declarations: [GithubDocumentationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GithubDocumentationComponent);
     component = fixture.componentInstance;
