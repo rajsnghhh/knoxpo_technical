@@ -55,8 +55,8 @@ export class GithubDocumentationComponent {
   }
 
   closeAddRepoDialog() {
-    this.repoAddModal.close()
-    this.addRepoForm.reset()
+    this.repoAddModal.close();
+    this.addRepoForm.reset();
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent) {
@@ -98,17 +98,36 @@ export class GithubDocumentationComponent {
   }
 
   onClickRepoGetBranchDetails(repo: any, i: any) {
+    this.branchesList = [];
+    this.issuesList = [];
+    // console.log(repo.owner_name, repo.repo_name);
+
     this.clickRepoDiv = i;
     this.deleteActive = true;
-    // console.log(this.deleteActive, 'this.deleteActive');
-    // console.log(this.clickRepoDiv);
 
-    this.commonservice.getRepositoryBranches().subscribe((res: any) => {
+    let obj = {
+      owner: repo.owner_name,
+      repo: repo.repo_name
+    }
+
+    this.commonservice.getRepositoryBranches(obj).subscribe((res: any) => {
       this.branchesList = res;
+      this.branchesList = this.branchesList?.map(({
+        repo_details = obj,
+        ...rest
+      }) => ({
+        obj,
+        ...rest
+      }));
       console.log(this.branchesList, 'branchesList');
-    });
 
-    this.commonservice.getRepositoryIssues().subscribe((res: any) => {
+    },
+      (error: any) => {
+        this.showError(error.error.message);
+      }
+    );
+
+    this.commonservice.getRepositoryIssues(obj).subscribe((res: any) => {
       this.issuesList = res;
       console.log(this.issuesList, 'issuesList');
     });
@@ -117,12 +136,20 @@ export class GithubDocumentationComponent {
 
 
   onClickBranchGetCommitDetails(branch: any, commit: any) {
+    console.log(branch);
+
     this.branchName = branch.name;
     this.commitModal = this.modalService.open(commit, {
       windowClass: 'commit',
     });
 
-    this.commonservice.getCommitsInBranch().subscribe((res: any) => {
+    let obj = {
+      owner: branch.obj.owner,
+      repo: branch.obj.repo,
+      branch_name: branch.name
+    }
+
+    this.commonservice.getCommitsInBranch(obj).subscribe((res: any) => {
       this.commitsList = res;
       this.commitsList.forEach(x => {
         var dob = new Date(x.commit.committer.date);

@@ -9,21 +9,20 @@ export class CommonService {
 
     constructor(private http: HttpClient) { }
 
-    // getRepository(): any {
-    //     return this.http.get(`${this.baseURL}knoxpo/firefunctions`,)
+    // getRepository(obj: any): any {
+    //     return this.http.get(`${this.baseURL}${obj?.owner}/${obj?.repo}`,)
     // }
 
-    getRepositoryBranches(): any {
-        return this.http.get(`${this.baseURL}knoxpo/firefunctions/branches`,)
+    getRepositoryBranches(obj: any): any {
+        return this.http.get(`${this.baseURL}${obj?.owner}/${obj?.repo}/branches`,)
     }
 
-    getRepositoryIssues(): any {
-        return this.http.get(`${this.baseURL}jquery/jquery/issues`,)
+    getRepositoryIssues(obj: any): any {
+        return this.http.get(`${this.baseURL}${obj?.owner}/${obj?.repo}/issues`,)
     }
 
-    getCommitsInBranch(): any {
-        return this.http.get(`${this.baseURL}jquery/jquery/commits?sha=2.2-stable`,)
+    getCommitsInBranch(obj: any): any {
+        return this.http.get(`${this.baseURL}${obj?.owner}/${obj?.repo}/commits?sha=${obj?.branch_name}`,)
     }
-
 
 }

@@ -118,9 +118,9 @@
             <form class="form-signin" [formGroup]="addRepoForm">
                 <div class="form-group col-md">
                     <label for="owner">Owner / Organization :&nbsp;<span class="text-danger">*&nbsp;</span></label>
+                    <!-- (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)" onpaste="return false;"-->
                     <input type="text" class="form-control" placeholder="Enter Owner / Organization"
-                        onpaste="return false" formControlName="owner"
-                        (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)"
+                        formControlName="owner"
                         [ngClass]="{'is-invalid':
                          c.owner.invalid && c.owner.touched,'is-valid': c.owner.valid && (c.owner.dirty ||c.owner.touched) }">
                     <div *ngIf="c.owner.errors" class="invalid-feedback">
@@ -130,8 +130,9 @@
 
                 <div class="form-group col-md">
                     <label for="repo_name">Repository Name :&nbsp;<span class="text-danger">*&nbsp;</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Repository Name" onpaste="return false;"
-                        formControlName="repo_name" (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)"
+                    <!-- (keypress)="validationService.onlyAlphabetsIntegersAndSpace($event)" onpaste="return false;"-->
+                    <input type="text" class="form-control" placeholder="Enter Repository Name"
+                        formControlName="repo_name"
                         [ngClass]="{'is-invalid': c.repo_name.invalid
                         && c.repo_name.touched,'is-valid': c.repo_name.valid && (c.repo_name.dirty || c.repo_name.touched) }">
                     <div *ngIf=" c.repo_name.errors" class="invalid-feedback">
@@ -174,7 +175,7 @@
                         <div>
                             <td><strong>{{comm.commit.committer.date}}</strong></td><br>
                             <td>{{comm.commit.message}}</td><br>
-                            <td><img src={{comm.committer.avatar_url}} alt="Avatar" class="avatar">
+                            <td><img src={{comm?.committer?.avatar_url}} class="avatar">
                                 &nbsp;
                                 {{comm.commit.committer.name}}</td>
                         </div>
